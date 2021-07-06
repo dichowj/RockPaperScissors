@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Page Title</title>
+  <meta charset="UTF-8"/>
+</head>
+<body>
+  <script>
+    let computerSelection;
+    let playerSelection;
+    let playerScore = 0;
+    let computerScore = 0;
+    
+    function computerPlay() {
+       let rps = Math.floor(Math.random()*3);
+        
+       switch (rps) {
+           case 0:
+               computerSelection = "rock";
+               return computerSelection;
+               break;
+            case 1:
+                computerSelection = "paper";
+                return computerSelection;
+                break;
+            case 2: 
+                computerSelection = "scissors";
+                return computerSelection;
+                break;
+            default: 
+                console.log("Jason....you fucked up.  Fucking idiot.");
+       }
+    }
+
+    function playerPrompt() {
+        let playerChoice = window.prompt(`Would you like to play "Rock", "Paper", or "Scissors"?`);
+        playerSelection = playerChoice.toLowerCase();
+        return playerSelection;
+    }
+  
+
+    function playRound (playerSelection, computerSelection) {
+        
+        
+        if (playerSelection == computerSelection) {
+            alert(`You tied the computer!  You chose ${playerSelection} and the computer chose ${computerSelection}`);
+        }
+            else if ((playerSelection == "rock" && computerSelection == "scissors") ||
+                     (playerSelection == "paper" && computerSelection === "rock") ||
+                     (playerSelection == "scissors" && computerSelection == "paper")) 
+                     {
+                        alert(`You won! ${playerSelection} beats ${computerSelection}`);
+                        playerScore++;
+                        return playerScore;
+                     }
+            else {
+                alert(`You lose! ${computerSelection} beats ${playerSelection}`)
+                computerScore++;
+                return computerScore;
+            }
+        }
+
+    function game() {
+        for (let i = 0; i<5; i++) {
+            computerPlay();
+            playerPrompt();
+            playRound (playerSelection, computerSelection);
+        }  
+        alert (`The final score is ${playerScore} for you, and ${computerScore} for the computer.`);
+    }
+
+    game();
+  </script>
+</body>
+</html>
