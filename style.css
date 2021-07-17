@@ -1,0 +1,42 @@
+html {
+    background: url('./RPS-background.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+  
+  h1 {
+      font-size: 35px;
+      margin: auto;
+      text-align: center;
+      font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+     
+  }
+
+  button {
+    float: left;
+    margin-right: 7%;
+    margin-left: 8%;
+    margin-top: 12%;
+    background-color: #70cdec;
+    font-size: 18px;
+    padding: 0.5rem;
+    border-radius: 12px;
+    border: 3px solid #ba5a00;
+  }
+
+  button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 5px 1px;
+  }
+
+  button:active {
+    background-color: #ffffff;
+    transform: translateY(4px);
+  }
+
+  #gameScore {
+      font-size: 18px;
+      margin-top: 45%;
+      text-align: center;
+      font-weight: bold;
+  }

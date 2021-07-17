@@ -2,15 +2,39 @@
 <html>
 <head>
   <title>Page Title</title>
-  <meta charset="UTF-8"/>
+  <meta charset="UTF-8" name="viewport" content="width=device-width,initial-scale=1"/>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <h1>Let's play a game of Rock Paper Scissors!</h1>
+    
+    <div class=rpsBtn>
+        <button type="button" id="rock">I choose Rock!</button>
+        <button type="button" id="scissors">I choose Scissors!</button>
+        <button type="button" id="paper">I choose Paper!</button>
+    </div>
+    <div id="gameScore"></div>
+</body>
   <script>
     let computerSelection;
     let playerSelection;
     let playerScore = 0;
     let computerScore = 0;
-    
+    let playerChoice = document.querySelectorAll('button');
+    let buttons = document.querySelectorAll('button');
+
+    playerChoice.forEach(button => {
+       button.addEventListener('click', function() {
+            playRound(button.id)
+        }); 
+    });
+
+    function disableButtons() {
+        buttons.forEach(threeButtons => {
+            threeButtons.disabled = true;
+        });
+    }
+
     function computerPlay() {
        let rps = Math.floor(Math.random()*3);
         
@@ -30,46 +54,46 @@
             default: 
                 console.log("Jason....you fucked up.  Fucking idiot.");
        }
-    }
+    }  
 
-    function playerPrompt() {
-        let playerChoice = window.prompt(`Would you like to play "Rock", "Paper", or "Scissors"?`);
-        playerSelection = playerChoice.toLowerCase();
-        return playerSelection;
-    }
-  
-
-    function playRound (playerSelection, computerSelection) {
-        
+    function playRound (playerSelection) {
+        let computerSelection = computerPlay();
+        let result = "";
         
         if (playerSelection == computerSelection) {
-            alert(`You tied the computer!  You chose ${playerSelection} and the computer chose ${computerSelection}`);
+            result = `It's a tie.  You chose ${playerSelection} and the computer also chose ${computerSelection}.`
+                +`<br><br>Player Score: ${playerScore} <br>Computer Score: ${computerScore}`;
+                document.getElementById('gameScore').innerHTML = result;
         }
             else if ((playerSelection == "rock" && computerSelection == "scissors") ||
                      (playerSelection == "paper" && computerSelection === "rock") ||
                      (playerSelection == "scissors" && computerSelection == "paper")) 
                      {
-                        alert(`You won! ${playerSelection} beats ${computerSelection}`);
                         playerScore++;
-                        return playerScore;
+                        result = `You win! Your choice of ${playerSelection} beats the computer's choice of ${computerSelection}.`
+                        +`<br><br>Player Score: ${playerScore} <br>Computer Score: ${computerScore}`;
+                        document.getElementById('gameScore').innerHTML = result;
+                        if (playerScore === 5){
+                            result = `You win! You got 5 points before the computer! <br><br>Player Score: ${playerScore}
+                            <br>Computer Score: ${computerScore} `;
+                            document.getElementById('gameScore').innerHTML = result;
+                            disableButtons();
+                        }
                      }
             else {
-                alert(`You lose! ${computerSelection} beats ${playerSelection}`)
                 computerScore++;
-                return computerScore;
+                result = `You lose! You choice of ${playerSelection} is beat by the computer's choice of ${computerSelection}.`
+                +`<br><br>Player Score: ${playerScore} <br>Computer Score: ${computerScore}`;
+                document.getElementById('gameScore').innerHTML = result;
+                    if (computerScore === 5) {
+                        result = `You lose! The computer got 5 points before you did! <br><br>Player Score: ${playerScore}
+                            <br>Computer Score: ${computerScore} `;
+                        document.getElementById('gameScore').innerHTML = result;   
+                    disableButtons();
+                }
             }
         }
-
-    function game() {
-        for (let i = 0; i<5; i++) {
-            computerPlay();
-            playerPrompt();
-            playRound (playerSelection, computerSelection);
-        }  
-        alert (`The final score is ${playerScore} for you, and ${computerScore} for the computer.`);
-    }
-
-    game();
+        
+            
   </script>
-</body>
 </html>
